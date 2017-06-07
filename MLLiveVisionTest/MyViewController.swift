@@ -17,15 +17,18 @@ class MyViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var resultLabel: UILabel!
     
-    var cameraPreviewLayer: CALayer!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        prep()
+        prepareCaptureSession()
     }
     
-    func prep() {
+    fileprivate func setLayerAsBackground(layer: CALayer) {
+        view.layer.addSublayer(layer)
+        layer.frame = view.bounds
+        view.bringSubview(toFront: resultLabel)
+    }
+    
+    fileprivate func prepareCaptureSession() {
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
         
@@ -34,30 +37,26 @@ class MyViewController: UIViewController {
         
         captureSession.addInput(input)
         
-        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        view.layer.addSublayer(cameraPreviewLayer)
-        cameraPreviewLayer.frame = view.bounds
-        view.bringSubview(toFront: resultLabel)
-        resultLabel.textColor = .white
+        let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        setLayerAsBackground(layer: cameraPreviewLayer)
         
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer delegate"))
         videoOutput.recommendedVideoSettings(forVideoCodecType: .jpeg, assetWriterOutputFileType: .mp4)
         
         captureSession.addOutput(videoOutput)
-        
         captureSession.sessionPreset = .high
         captureSession.startRunning()
     }
     
-    func predict(image: CGImage) {
+    fileprivate func predict(image: CGImage) {
         let model = try! VNCoreMLModel(for: Inceptionv3().model)
-        let request = VNCoreMLRequest(model: model, completionHandler: myResultsMethod)
+        let request = VNCoreMLRequest(model: model, completionHandler: didGetPredictionResults)
         let handler = VNImageRequestHandler(cgImage: image)
         try! handler.perform([request])
     }
     
-    func myResultsMethod(request: VNRequest, error: Error?) {
+    fileprivate func didGetPredictionResults(request: VNRequest, error: Error?) {
         guard let results = request.results as? [VNClassificationObservation] else {
             resultLabel.text = "??🙀??"
             return
@@ -82,10 +81,10 @@ extension MyViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let context = CIContext(options: nil)
         
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { fatalError("cg image") }
-        let uiimage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .leftMirrored)
+        let uiImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .leftMirrored)
             
         DispatchQueue.main.sync {
-            predict(image: uiimage.cgImage!)
+            predict(image: uiImage.cgImage!)
         }
     }
 }
