@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80EAC7AE1EE7A4EA0077333A /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8033154D1EE7A2BE00E130AE /* Inceptionv3.mlmodel */; };
 		80EC7FB91EE7A25400768C9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EC7FB81EE7A25400768C9A /* AppDelegate.swift */; };
-		80EC7FBB1EE7A25400768C9A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EC7FBA1EE7A25400768C9A /* ViewController.swift */; };
+		80EC7FBB1EE7A25400768C9A /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EC7FBA1EE7A25400768C9A /* MyViewController.swift */; };
 		80EC7FBE1EE7A25400768C9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80EC7FBC1EE7A25400768C9A /* Main.storyboard */; };
 		80EC7FC01EE7A25400768C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80EC7FBF1EE7A25400768C9A /* Assets.xcassets */; };
 		80EC7FC31EE7A25400768C9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80EC7FC11EE7A25400768C9A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8033154D1EE7A2BE00E130AE /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Inceptionv3.mlmodel; path = ../../../Downloads/Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		80EC7FB51EE7A25400768C9A /* MLLiveVisionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLLiveVisionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80EC7FB81EE7A25400768C9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		80EC7FBA1EE7A25400768C9A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		80EC7FBA1EE7A25400768C9A /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		80EC7FBD1EE7A25400768C9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80EC7FBF1EE7A25400768C9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80EC7FC21EE7A25400768C9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8033154C1EE7A2AD00E130AE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8033154D1EE7A2BE00E130AE /* Inceptionv3.mlmodel */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		80EC7FAC1EE7A25400768C9A = {
 			isa = PBXGroup;
 			children = (
@@ -54,8 +64,9 @@
 		80EC7FB71EE7A25400768C9A /* MLLiveVisionTest */ = {
 			isa = PBXGroup;
 			children = (
+				8033154C1EE7A2AD00E130AE /* Resources */,
 				80EC7FB81EE7A25400768C9A /* AppDelegate.swift */,
-				80EC7FBA1EE7A25400768C9A /* ViewController.swift */,
+				80EC7FBA1EE7A25400768C9A /* MyViewController.swift */,
 				80EC7FBC1EE7A25400768C9A /* Main.storyboard */,
 				80EC7FBF1EE7A25400768C9A /* Assets.xcassets */,
 				80EC7FC11EE7A25400768C9A /* LaunchScreen.storyboard */,
@@ -135,7 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80EC7FBB1EE7A25400768C9A /* ViewController.swift in Sources */,
+				80EC7FBB1EE7A25400768C9A /* MyViewController.swift in Sources */,
+				80EAC7AE1EE7A4EA0077333A /* Inceptionv3.mlmodel in Sources */,
 				80EC7FB91EE7A25400768C9A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +194,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -237,6 +251,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -312,6 +328,7 @@
 				80EC7FC91EE7A25400768C9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
