@@ -32,7 +32,7 @@ class MyViewController: UIViewController {
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
         
-        let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!
+        let backCamera = AVCaptureDevice.default(for: .video)!
         let input = try! AVCaptureDeviceInput(device: backCamera)
         
         captureSession.addInput(input)
@@ -49,10 +49,10 @@ class MyViewController: UIViewController {
         captureSession.startRunning()
     }
     
-    fileprivate func predict(image: CGImage) {
+    fileprivate func predict(_ pixelBuffer: CVPixelBuffer) {
         let model = try! VNCoreMLModel(for: Inceptionv3().model)
         let request = VNCoreMLRequest(model: model, completionHandler: didGetPredictionResults)
-        let handler = VNImageRequestHandler(cgImage: image)
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
         try! handler.perform([request])
     }
     
@@ -70,9 +70,7 @@ class MyViewController: UIViewController {
         let highestConfidenceResult = results.first!
         
         // Sometimes results come back as comma delimited lists of synonyms. We should just take the first one if that is the case.
-        let identifier = highestConfidenceResult.identifier.contains(", ") ?
-            String(describing: highestConfidenceResult.identifier.split(separator: ",").first!) :
-            highestConfidenceResult.identifier
+        let identifier = String(describing: highestConfidenceResult.identifier.split(separator: ",").first!)
         
         resultLabel.text = identifier
     }
@@ -80,14 +78,10 @@ class MyViewController: UIViewController {
 
 extension MyViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { fatalError("pixel buffer is nil") }
-        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-        let context = CIContext(options: nil)
-        
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { fatalError("cg image is nil") }
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { fatalError("Pixel Buffer is nil.") }
             
         DispatchQueue.main.sync {
-            predict(image: cgImage)
+            predict(pixelBuffer)
         }
     }
 }
