@@ -68,7 +68,11 @@ class MyViewController: UIViewController {
         }
         
         let highestConfidenceResult = results.first!
-        let identifier = highestConfidenceResult.identifier.contains(", ") ? String(describing: highestConfidenceResult.identifier.split(separator: ",").first!) : highestConfidenceResult.identifier
+        
+        // Sometimes results come back as comma delimited lists of synonyms. We should just take the first one if that is the case.
+        let identifier = highestConfidenceResult.identifier.contains(", ") ?
+            String(describing: highestConfidenceResult.identifier.split(separator: ",").first!) :
+            highestConfidenceResult.identifier
         
         resultLabel.text = identifier
     }
@@ -80,11 +84,10 @@ extension MyViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
         let context = CIContext(options: nil)
         
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { fatalError("cg image") }
-        let uiImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .leftMirrored)
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { fatalError("cg image is nil") }
             
         DispatchQueue.main.sync {
-            predict(image: uiImage.cgImage!)
+            predict(image: cgImage)
         }
     }
 }
