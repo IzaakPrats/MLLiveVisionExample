@@ -6,4 +6,4 @@ This is an example of using CoreML and Vision to take a live camera feed and pre
 
 **Warning: Includes 90MB MLModel**
 
-You can replace this MLModel with your own from [developer.apple.com/machine-learning](developer.apple.com/machine-learning)
+You can replace this MLModel with your own from [https://developer.apple.com/machine-learning](https://developer.apple.com/machine-learning)
